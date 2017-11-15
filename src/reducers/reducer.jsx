@@ -24,7 +24,7 @@ const DATA = {
 		if(e.target.value){
 			return this.filterValue(e.target.value, [...this.sorting_base]);
 		}else{
-			return [...this.data_base]
+			return [...JSON.parse(localStorage.getItem('test_data_base_q1w2e3r4'))]
 		}
 	},
 	filterValue(inp, data){
@@ -42,7 +42,26 @@ const DATA = {
 				});
 				a.push([...b]);
 		return a.reduce((prev, next)=>{return prev.concat(next)});
-	}
+    },
+    localStorageActions: function (type, value, storage_data_base){
+        let data = JSON.parse(localStorage.getItem(storage_data_base)),
+                middleValue = '',
+                sendData = '';
+        let filterElements = data.filter((element, index)=>{
+                return value.id !== element.id;
+            });
+        if(type === "edit"){
+            middleValue = [...filterElements, value];
+        }else if(type === 'delete'){
+            middleValue = [...filterElements];
+        }else if(type === 'back'){
+            
+        }else if(type === 'add'){
+            middleValue = [...data, value];			 
+        }
+        sendData = JSON.stringify(middleValue);
+        localStorage.setItem(storage_data_base, sendData);
+    }
 }
 
 
@@ -54,8 +73,14 @@ const reducer = (state = DATA, action) => {
         case "CLOSE_ADD_MODAL" : return state = {...state, openModal: action.payload};
         case "SORTING_DATA_BASE": return state = {...state, sorting_base: [...action.payload]};
         case "FILTER_DATA_BASE" : return state = {...state, sorting_base: action.payload};
-        case 'ADD_WORKER' : return state = {...state};
-        default: return state = {...state};
+        case 'ADD_WORKER' :   state.localStorageActions('add', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base, action.payload]};
+        case 'DELETE_WORKER': state.localStorageActions('delete', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base.filter((v)=>{
+            if(v.id != action.payload.id){
+                return v;
+            }
+        })]};
+        case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
+        default: return state = {...state,};
     }
 };
 export default reducer;
