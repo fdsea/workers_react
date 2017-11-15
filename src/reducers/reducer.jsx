@@ -81,8 +81,20 @@ const reducer = (state = DATA, action) => {
                 return v;
             }
         })]};
-        case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
-        case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4')
+        case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
+            if(v.id == action.payload.id){
+                return {...v, status: 'fired'}
+            }else{
+                return v
+            }
+        })]};
+        case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
+            if(v.id == action.payload.id){
+                return {...v, status: 'work'}
+            }else{
+                return v
+            }
+        })]};
         case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
         default: return state = {...state,};
     }
