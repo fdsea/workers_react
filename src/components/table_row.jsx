@@ -18,7 +18,21 @@ const TableRowComponent = ({data}) => {
 					})
 				}}>Ред</Button>
 				<Button className="btn btn--orange" bsStyle="primary">См</Button>
-				{data.status === 'work' ? <Button className="btn btn--blue" bsStyle="danger">Ув</Button> : <Button className="btn btn--green" bsStyle="success">Вос</Button>}
+				{data.status === 'work' 
+				? 
+				<Button className="btn btn--blue" bsStyle="danger" onClick={()=>{
+					store.dispatch({
+						type: "FIRED_WORKER",
+						payload: {...data, status: 'fired'}
+					});
+				}}>Ув</Button> 
+				: 
+				<Button className="btn btn--green" bsStyle="success" onClick={()=>{
+					store.dispatch({
+						type: "TAKE_BACK_WORKER",
+						payload: {...data, status: 'work'}
+					});
+				}}>Вос</Button>}
 			</td>
 		</tr>
 	);

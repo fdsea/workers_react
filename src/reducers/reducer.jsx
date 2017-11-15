@@ -58,6 +58,8 @@ const DATA = {
             
         }else if(type === 'add'){
             middleValue = [...data, value];			 
+        }else if(type === 'fired'){
+
         }
         sendData = JSON.stringify(middleValue);
         localStorage.setItem(storage_data_base, sendData);
@@ -79,6 +81,8 @@ const reducer = (state = DATA, action) => {
                 return v;
             }
         })]};
+        case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
+        case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4')
         case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
         default: return state = {...state,};
     }
