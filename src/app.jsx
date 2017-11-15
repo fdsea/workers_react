@@ -21,7 +21,7 @@ class LoadModule extends React.Component{
 	componentDidMount(){
 		store.dispatch({
 			type: "LOAD_DATA",
-			payload: [...localSTORAGE]
+			payload: [...JSON.parse(localStorage.getItem('test_data_base_q1w2e3r4'))]
 		});
 	}
 	render(){
@@ -38,7 +38,8 @@ class App extends React.Component {
 		return(
 			<div>
 				<ActionLine isValue = {this.props.appData}/>
-				<AddModal isValue = {this.props.appData}/>
+				<AddModal isValue = {this.props.appData} type={'add'}/>
+				<AddModal isValue = {this.props.appData} type={'edit'}/>
 				<ContentPage isValue = {this.props.appData}/>
 			</div>
   		);

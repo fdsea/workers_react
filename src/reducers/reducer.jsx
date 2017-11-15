@@ -4,6 +4,7 @@ const DATA = {
     storeKey: 'test_data_base_q1w2e3r4',
     data_base: [],
     sorting_base: [],
+    temporary_edit_value: {data: {}, open: false},
     sortThis: function(arr, parameter) {
         let middleArr = [...arr];
         middleArr.sort((a, b)=>{
@@ -69,10 +70,12 @@ const DATA = {
 
 
 const reducer = (state = DATA, action) => {
-    console.log(state);
+   // console.log(state.temporary_edit_value);
     switch(action.type){
         case "LOAD_DATA" : return state = {...state, data_base: action.payload, sorting_base: action.payload};
         case "OPEN_ADD_MODAL" : return state = {...state, openModal: action.payload};
+        case "OPEN_EDIT_MODAL" : return state = {...state, temporary_edit_value: action.payload};
+        case "CLOSE_EDIT_MODAL" : return state = {...state, temporary_edit_value: action.payload};
         case "CLOSE_ADD_MODAL" : return state = {...state, openModal: action.payload};
         case "SORTING_DATA_BASE": return state = {...state, sorting_base: [...action.payload]};
         case "FILTER_DATA_BASE" : return state = {...state, sorting_base: action.payload};
@@ -84,19 +87,25 @@ const reducer = (state = DATA, action) => {
         })]};
         case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, state.storeKey); return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
             if(v.id == action.payload.id){
-                return {...v, status: 'fired'}
+                return {...v, status: 'уволен(а)'}
             }else{
-                return v
+                return v;
             }
         })]};
         case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, state.storeKey);return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
             if(v.id == action.payload.id){
-                return {...v, status: 'work'}
+                return {...v, status: 'работает'}
             }else{
-                return v
+                return v;
             }
         })]};
-        case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, state.storeKey);
+        case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, state.storeKey);return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
+            if(v.id == action.payload.id){
+                return {...action.payload}
+            }else{
+                return v;
+            }
+        })]};
         default: return state = {...state,};
     }
 };

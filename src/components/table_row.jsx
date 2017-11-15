@@ -11,26 +11,32 @@ const TableRowComponent = ({data}) => {
 			<td className="td_table" data-position ={data.position}>{data.position}</td>
 			<td className="td_table" data-status={data.status}>{data.status}</td>
 			<td className="td_table">
-				<Button className="btn btn--red" bsStyle="warning" onClick={()=>{
+				<Button className="btn-mN btn--reduction" bsStyle="warning" onClick={()=>{
+					store.dispatch({
+						type: 'OPEN_EDIT_MODAL',
+						payload: {data: {...data}, open: true}
+					});
+				}}>Ред</Button>
+				<Button bsStyle="primary" className="btn-mN btn--depCh">См</Button>
+				<Button bsStyle="danger" className="btn-mN btn--delete" onClick={()=>{
 					store.dispatch({
 						type: "DELETE_WORKER",
 						payload: data
 					})
-				}}>Ред</Button>
-				<Button className="btn btn--orange" bsStyle="primary">См</Button>
-				{data.status === 'work' 
+				}}>Уд</Button>
+				{data.status === 'работает' 
 				? 
-				<Button className="btn btn--blue" bsStyle="danger" onClick={()=>{
+				<Button bsStyle="danger" className="btn-mN btn--job" onClick={()=>{
 					store.dispatch({
 						type: "FIRED_WORKER",
-						payload: {...data, status: 'fired'}
+						payload: {...data, status: 'уволен(а)'}
 					});
 				}}>Ув</Button> 
 				: 
-				<Button className="btn btn--green" bsStyle="success" onClick={()=>{
+				<Button  bsStyle="success" className="btn-mN btn--job" onClick={()=>{
 					store.dispatch({
 						type: "TAKE_BACK_WORKER",
-						payload: {...data, status: 'work'}
+						payload: {...data, status: 'работает'}
 					});
 				}}>Вос</Button>}
 			</td>

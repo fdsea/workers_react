@@ -14,7 +14,7 @@ module.exports = {
     root: [
       path.resolve(__dirname, "src"),
     ],
-    extensions: ['', '.js', '.jsx', '.css', '.json']
+    extensions: ['', '.js', '.jsx', '.css', 'scss' ,'.json']
   },
   output: {
     path: path.join(__dirname, '/public/'),

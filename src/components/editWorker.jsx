@@ -5,10 +5,12 @@ import store from './../app';
 
 class AddWorker extends React.Component{
 	constructor(props){
-		super(props);
-		this.sendData = this.sendData.bind(this);
+        super(props);
+        this.getValue = this.getValue.bind(this);
+        this.setDepartment= this.setDepartment.bind(this);
+        //this.setPosition = this.setPosition.bind(this);
 		this.state={
-			data: {},
+            data: {...this.props.isValue.temporary_edit_value.data},
 			department: [
 				{value: 'office', data: 'Офис'},
 				{value: 'store', data: 'Склад'},
@@ -18,20 +20,31 @@ class AddWorker extends React.Component{
 				{value: 'boss', data: 'Начальник'}, 
 				{value:'manager', data: 'Менеджер'}
 			]
-		};
-		this.getValue = this.getValue.bind(this);
-		this.setDepartment= this.setDepartment.bind(this);
-	}
-	setDepartment(event){
-		let value = event.target.value;
+		};	
+    }
+    componentWillMount() {
+        
+        this.setDepartment(1, this.props.isValue.temporary_edit_value.data.department);
+    }
+	setDepartment(event, secondValue = null){
+        let value;
+        if(secondValue){
+            value = secondValue;
+        }else{
+            value = event.target.value;
+        }
+        
+		//let value = event.target.value;
 		value === 'Офис' ? this.setState({position: [{value: 'boss', data: 'Начальник'}, {value:'manager', data: 'Менеджер'}]}) 
 		 : value==='Склад' ? this.setState({position: [{value:'boss_of_store', data: 'Кладовщик'}, {value:"nearly_boss_of_store", data:'Приемщик'}]}) 
-		 : this.setState({position: [{value:'guardian', data: 'Охранник'}]})
+         : this.setState({position: [{value:'guardian', data: 'Охранник'}]})
 	}
-	getValue(event){
-        event.preventDefault();
+	getValue(event, type="edit"){
+        if(type=="edit"){
+           event.preventDefault()
+        }
         let data = {
-            id: `${Math.random() * Math.random()}`,
+            id: this.state.data.id,
             name : `${this.name.value}`,
             surname: `${this.surname.value}`,
             patronymic: `${this.patronymic.value}`,
@@ -41,14 +54,18 @@ class AddWorker extends React.Component{
             phone: `${this.phone.value}`,
             status: `${this.status.value}`
         };
-            store.dispatch({
-                type: "ADD_WORKER",
-                payload: data
+        if(type == 'edit'){
+           store.dispatch({
+                type: 'EDIT_WORKER',
+                payload: {...data}
         });
-	}
-	sendData(){
        
-        //console.log(this.state.data);
+        }else if(type == "delete"){
+            store.dispatch({
+                type: "DELETE_WORKER",
+                payload: {...data}
+            });
+        }
 	}
 	render(){
 		let selectDepartment = this.state.department.map((value, index)=>{
@@ -56,10 +73,10 @@ class AddWorker extends React.Component{
 		});
 		let selectPosition = this.state.position.map((value, index)=>{
 			return <Option key={`${index}`} value = {value.value} data = {value.data}/>
-		});
+        });
 		return(
-    
-                    <Form onSubmit = {this.getValue} id="addWorker">
+                <div>
+                    <Form onSubmit = {(e)=>{this.getValue(e, 'edit')}} id="addWorker">
                         <FormGroup>
                             <ControlLabel>Имя</ControlLabel>
                             <FormControl 
@@ -67,7 +84,8 @@ class AddWorker extends React.Component{
                                 type="text" 
                                 pattern="[а-яА-ЯёЁ]{2,15}" 
                                 title="Можно использовать только кириллицу от 2 до 15 символов" 
-                                placeholder="Имя" 
+                                placeholder="Имя"
+                                defaultValue = {this.state.data.name} 
                                 required ="true"
                             />
                         </FormGroup>
@@ -78,7 +96,8 @@ class AddWorker extends React.Component{
                                 type="text" 
                                 pattern="[а-яА-ЯёЁ]{2,15}" 
                                 title="Можно использовать только кириллицу от 2 до 15 символов" 
-                                placeholder="Фамилия" 
+                                placeholder="Фамилия"
+                                defaultValue = {this.state.data.surname}  
                                 required
                             />
                         </FormGroup>
@@ -89,7 +108,8 @@ class AddWorker extends React.Component{
                                 type="text" 
                                 pattern="[а-яА-ЯёЁ]+" 
                                 title="Можно использовать только кириллицу"
-                                placeholder="Отчество" 
+                                placeholder="Отчество"
+                                defaultValue = {this.state.data.patronymic} 
                                 required
                             />
                         </FormGroup>
@@ -100,7 +120,8 @@ class AddWorker extends React.Component{
                                 type="text" 
                                 pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{2}" 
                                 title="Формат! ХХ.ХХ.ХХ"
-                                placeholder="Дата рождения" 
+                                placeholder="Дата рождения"
+                                defaultValue = {this.state.data.birthday} 
                                 required
                             />
                         </FormGroup>
@@ -110,7 +131,7 @@ class AddWorker extends React.Component{
                                 inputRef = {input=>this.department = input}
                                 onChange={this.setDepartment}
                                 componentClass="select"
-                                defaultValue="Офис"
+                                defaultValue={this.state.data.department} 
                                 required
                             >
                             { selectDepartment }
@@ -121,7 +142,7 @@ class AddWorker extends React.Component{
                         <FormControl 
                             inputRef = {input=>this.position = input}
                             componentClass="select"
-                            defaultValue="Начальник"
+                            defaultValue={this.state.data.position} 
                             required
                         >
                        {selectPosition}
@@ -134,7 +155,8 @@ class AddWorker extends React.Component{
                             type="tel" 
                             pattern="8\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}" 
                             title="формат вида 8(XXX)XXX-XX-XX"
-                            placeholder="Номер 8(XXX)XXX-XX-XX" 
+                            placeholder="Номер 8(XXX)XXX-XX-XX"
+                            defaultValue={this.state.data.phone} 
                             required
                         />
                     </FormGroup>
@@ -144,14 +166,17 @@ class AddWorker extends React.Component{
                             inputRef = {input=>this.status = input}
                             componentClass="select"
                             defaultValue="работает"
+                            defaultValue={this.state.data.status} 
                             required
                         >
                             <option value="работает">Работает</option>
                             <option value="уволен(а)">Уволен</option>
                         </FormControl>
                     </FormGroup>
-				        <Button type="submit" bsStyle="success" onClick = {this.sendData}>Отправить данные</Button>
+                        <Button type="submit" bsStyle="success">Отправить данные</Button>
                     </Form>
+                    <Button bsStyle="danger" style={{marginTop:"2em", marginBottom: '0'}} onClick = {()=>{this.getValue(1, 'delete')}}>Удалить данные</Button>
+                </div>    
 		);
 	}
 }

@@ -1,0 +1,58 @@
+.head--cell{
+    background: lightgreen;
+    transition: .3s ease;
+    position: relative;
+}
+.head--cell:hover:not(:last-child){
+    background: lightblue;
+    cursor: pointer;
+}
+.head--cell:hover:after{
+    display: block;
+}
+.head--cell:after{
+    content: 'Сортировать';
+    position: absolute;
+    display: block;
+    padding: 1em;
+    background: #fff;
+    box-shadow: 5px 5px 15px #aaa;
+    left: 0;
+    top: -130%;
+    display: none;
+    z-index: 100;
+}
+.head--cell:last-child:after{
+    content: '';
+    display: none;
+}
+.btn-mN{
+    position: relative
+}
+
+.btn--reduction:after, .btn--depCh:after, .btn--delete:after, .btn--job:after{
+    content: "При нажатии на кнопку Вы сможите отредактировать данные работника";
+    position: absolute;
+    display: block;
+    z-index: 100;
+    color: #000;
+    padding: 1em;
+    background: #fff;
+    box-shadow: 5px 5px 15px #aaa;
+    left: -10em;
+    top: -200%;
+    display: none;
+}
+.btn--reduction:hover:after, .btn--depCh:hover:after, .btn--delete:hover:after, .btn--job:hover:after{
+    display: block;
+}
+
+.btn--depCh:after{
+    content: "При нажатии на кнопку Вы сможите поменять отдел работы";
+}
+.btn--delete:after{
+    content: "Удаление записи из базы";
+}
+.btn--job:after{
+    content: "Вы можете уволить или восстановить работника"
+}
