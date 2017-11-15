@@ -1,6 +1,7 @@
 //import localSTORAGE from './../components/temporary_base'
 const DATA = {
     openModal: false,
+    storeKey: 'test_data_base_q1w2e3r4',
     data_base: [],
     sorting_base: [],
     sortThis: function(arr, parameter) {
@@ -24,7 +25,7 @@ const DATA = {
 		if(e.target.value){
 			return this.filterValue(e.target.value, [...this.sorting_base]);
 		}else{
-			return [...JSON.parse(localStorage.getItem('test_data_base_q1w2e3r4'))]
+			return [...JSON.parse(localStorage.getItem(this.storeKey))]
 		}
 	},
 	filterValue(inp, data){
@@ -75,27 +76,27 @@ const reducer = (state = DATA, action) => {
         case "CLOSE_ADD_MODAL" : return state = {...state, openModal: action.payload};
         case "SORTING_DATA_BASE": return state = {...state, sorting_base: [...action.payload]};
         case "FILTER_DATA_BASE" : return state = {...state, sorting_base: action.payload};
-        case 'ADD_WORKER' :   state.localStorageActions('add', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base, action.payload]};
-        case 'DELETE_WORKER': state.localStorageActions('delete', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base.filter((v)=>{
+        case 'ADD_WORKER' :   state.localStorageActions('add', action.payload, state.storeKey); return state = {...state, sorting_base: [...state.sorting_base, action.payload]};
+        case 'DELETE_WORKER': state.localStorageActions('delete', action.payload, state.storeKey); return state = {...state, sorting_base: [...state.sorting_base.filter((v)=>{
             if(v.id != action.payload.id){
                 return v;
             }
         })]};
-        case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4'); return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
+        case "FIRED_WORKER" : state.localStorageActions('edit', action.payload, state.storeKey); return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
             if(v.id == action.payload.id){
                 return {...v, status: 'fired'}
             }else{
                 return v
             }
         })]};
-        case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
+        case "TAKE_BACK_WORKER" : state.localStorageActions('edit', action.payload, state.storeKey);return state = {...state, sorting_base: [...state.sorting_base.map((v)=>{
             if(v.id == action.payload.id){
                 return {...v, status: 'work'}
             }else{
                 return v
             }
         })]};
-        case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, 'test_data_base_q1w2e3r4');
+        case 'EDIT_WORKER' :  state.localStorageActions('edit', action.payload, state.storeKey);
         default: return state = {...state,};
     }
 };
