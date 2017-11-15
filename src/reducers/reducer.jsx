@@ -1,8 +1,8 @@
-import localSTORAGE from './../components/temporary_base'
+//import localSTORAGE from './../components/temporary_base'
 const DATA = {
     openModal: false,
-    data_base: [...localSTORAGE],
-    sorting_base: [...localSTORAGE],
+    data_base: [],
+    sorting_base: [],
     sortThis: function(arr, parameter) {
         let middleArr = [...arr];
         middleArr.sort((a, b)=>{
@@ -49,6 +49,7 @@ const DATA = {
 const reducer = (state = DATA, action) => {
     console.log(state);
     switch(action.type){
+        case "LOAD_DATA" : return state = {...state, data_base: action.payload, sorting_base: action.payload};
         case "OPEN_ADD_MODAL" : return state = {...state, openModal: action.payload};
         case "CLOSE_ADD_MODAL" : return state = {...state, openModal: action.payload};
         case "SORTING_DATA_BASE": return state = {...state, sorting_base: [...action.payload]};

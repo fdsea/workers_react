@@ -11,8 +11,25 @@ import { createStore, combineReducers } from 'redux';
 import { connect } from 'react-redux';
 import reducer from './reducers/reducer';
 import ContentPage from './components/content_page';
+import localSTORAGE from './components/temporary_base';
 const history = createBrowserHistory();
 
+class LoadModule extends React.Component{
+	constructor(props){
+		super(props)
+	}
+	componentDidMount(){
+		store.dispatch({
+			type: "LOAD_DATA",
+			payload: [...localSTORAGE]
+		});
+	}
+	render(){
+		return(
+			<App appData = {this.props.appData}/>
+		);
+	}
+}
 class App extends React.Component {
 	constructor(props){
 		super(props);
@@ -35,8 +52,12 @@ const mapStateToProps = (store) => {
         appData: store.firstReducer
     };
 };
-const Point = connect(mapStateToProps)(App);
+const Point = connect(mapStateToProps)(LoadModule);
 const store = createStore(reducers);
 export default store;
 
-render(<Provider store = { store }><Point /></Provider>, document.getElementById('app-root'));
+render(<Provider store = { store }>
+		<div>
+			<Point />
+		</div>	
+		</Provider>, document.getElementById('app-root'));

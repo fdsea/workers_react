@@ -1,4 +1,8 @@
-const localSTORAGE = [
+
+let localSTORAGE ;
+let data_base_key = 'test_data_base_q1w2e3r4';
+let db_storage = localStorage.getItem(data_base_key);
+let defaultValues = [
     {
         id: "0",
         name: "Иван",
@@ -99,4 +103,17 @@ const localSTORAGE = [
         department: 'office'
     }
 ];
+if(db_storage){
+    localSTORAGE = JSON.parse(db_storage);
+}else{
+    let yes = confirm('Ваш localStorage, не содержит записей. Добавить значения для теста?');
+    if(yes){
+        localStorage.setItem(data_base_key, JSON.stringify(defaultValues));
+        localSTORAGE = JSON.parse(db_storage);
+    }else{
+        localSTORAGE = [];
+    }      
+}
+
+
 export default localSTORAGE;
