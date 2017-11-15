@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableRow = ({data}) => {
+const TableRowComponent = ({data}) => {
 	return(
 		<tr>
 			<td className="td_table" data-department={data.department}>{data.department}</td>
@@ -16,4 +16,4 @@ const TableRow = ({data}) => {
 		</tr>
 	);
 };
-export default TableRow;
+export default TableRowComponent;

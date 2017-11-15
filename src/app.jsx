@@ -10,7 +10,7 @@ import ActionLine from './components/action_line';
 import { createStore, combineReducers } from 'redux';
 import { connect } from 'react-redux';
 import reducer from './reducers/reducer';
-
+import ContentPage from './components/content_page';
 const history = createBrowserHistory();
 
 class App extends React.Component {
@@ -22,6 +22,7 @@ class App extends React.Component {
 			<div>
 				<ActionLine isValue = {this.props.appData}/>
 				<AddModal isValue = {this.props.appData}/>
+				<ContentPage isValue = {this.props.appData}/>
 			</div>
   		);
 	}
