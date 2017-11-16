@@ -8,14 +8,17 @@ import store from './../app';
 class TablePage extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            arr: store.getState().firstReducer.temporary_arr
+        };
     }
     render(){
         let index = this.props.match.params.number;
         //console.log(this.props.match.params.number); /// получается ссылка на индекс массива который и надо отрисовать
+        //console.log(this.state.arr);                /// ссылка на временный массив
+       console.log(index, this.state.arr[index])
         return(
-            <td>
-                {`Hello! my index is: ${index}`}
-            </td>
+            <div></div>
         );
     }
 }

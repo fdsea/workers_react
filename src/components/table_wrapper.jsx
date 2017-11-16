@@ -16,7 +16,7 @@ class TableWrapper extends React.Component{
         let links = this.props.isValue.temporary_arr.map((v, i)=>{
             return <Link to={`/${i}`} key={`${i}`}><Button bsStyle="success">{ i }</Button></Link>
         });
-        let routs = <td><Route path='/:number' component = {TablePage}/></td>
+        let routs = <td><Route path='/:number' component = {TablePage}/></td> // сделать путь по умолчанию !!!
      
         return(
             <tr>
