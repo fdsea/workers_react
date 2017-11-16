@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Router } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import { dispatch, getState} from 'redux';
 import { Provider } from 'react-redux';
 import 'react-select/dist/react-select.css';

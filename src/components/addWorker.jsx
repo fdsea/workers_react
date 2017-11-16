@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, FormGroup, ControlLabel, FormControl, Form, Radio, Table, Grid, Row, Col, PageHeader } from 'react-bootstrap';
 import Option from './option';
 import store from './../app';
+import TooltipUn from './tooltip';
 
 class AddWorker extends React.Component{
 	constructor(props){
@@ -117,7 +118,7 @@ class AddWorker extends React.Component{
                             </FormControl>
                         </FormGroup>
                         <FormGroup>
-                        <ControlLabel></ControlLabel>
+                        <ControlLabel>Позиция</ControlLabel>
                         <FormControl 
                             inputRef = {input=>this.position = input}
                             componentClass="select"
@@ -139,7 +140,7 @@ class AddWorker extends React.Component{
                         />
                     </FormGroup>
                     <FormGroup>
-                        <ControlLabel>Дата рождения</ControlLabel>
+                        <ControlLabel>Статус</ControlLabel>
                         <FormControl 
                             inputRef = {input=>this.status = input}
                             componentClass="select"
@@ -150,7 +151,8 @@ class AddWorker extends React.Component{
                             <option value="уволен(а)">Уволен</option>
                         </FormControl>
                     </FormGroup>
-				        <Button type="submit" bsStyle="success" onClick = {this.sendData}>Отправить данные</Button>
+                        <Button className="btn--send" type="submit" bsStyle="success" onClick = {this.sendData}>Отправить данные</Button>
+                        <TooltipUn classTool={'tl--send'} data = {'Отправка введенных данных в базу данных. После нажатия, окно добавления работника можно закрыть'} />
                     </Form>
 		);
 	}

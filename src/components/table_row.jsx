@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import TooltipUn from './tooltip';
 import store from './../app';
 
 const TableRowComponent = ({data}) => {
@@ -17,22 +18,29 @@ const TableRowComponent = ({data}) => {
 						payload: {data: {...data}, open: true}
 					});
 				}}>Ред</Button>
-				{/*<Button bsStyle="primary" className="btn-mN btn--depCh">См</Button> */}
+				<TooltipUn classTool={'reduction'} data = {'Редактирование данных работника. Возможно только в режиме "Список"'} />
+				
 				{data.status === 'работает' 
 				? 
-				<Button bsStyle="danger" className="btn-mN btn--job" onClick={()=>{
+				(<span><Button bsStyle="danger" className="btn-mN btn--job" onClick={()=>{
 					store.dispatch({
 						type: "FIRED_WORKER",
 						payload: {...data, status: 'уволен(а)'}
 					});
-				}}>Ув</Button> 
+				}}>Ув</Button>
+				<TooltipUn classTool={'job'} data = {'Вы можете уволить или восстановить работника. Возможно только в режиме "Список"'} />
+				</span>)
 				: 
-				<Button  bsStyle="success" className="btn-mN btn--job" onClick={()=>{
+				(<span><Button  bsStyle="success" className="btn-mN btn--job" onClick={()=>{
 					store.dispatch({
 						type: "TAKE_BACK_WORKER",
 						payload: {...data, status: 'работает'}
 					});
-				}}>Вос</Button>}
+				}}>Вос</Button>
+				<TooltipUn classTool={'job'} data = {'Вы можете уволить или восстановить работника. Возможно только в режиме "Список"'} />
+					</span>
+				)
+			}
 			</td>
 		</tr>
 	);

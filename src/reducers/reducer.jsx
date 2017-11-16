@@ -130,7 +130,7 @@ const reducer = (state = DATA, action) => {
             }
         })]};
         case "TYPE_LIST": return state = {...state, quant_data: action.payload, temporary_arr: []};
-        case "TYPE_PAGE": state.generateTable(state.pageQuantity(), 0, state.sorting_base, 0,state.row_in_page); return state = {...state, quant_data: action.payload};
+        case "TYPE_PAGE": state.generateTable(state.pageQuantity(), 0, state.sorting_base, 0, state.row_in_page); return state = {...state, quant_data: action.payload};
         default: return state = {...state,};
     }
 };

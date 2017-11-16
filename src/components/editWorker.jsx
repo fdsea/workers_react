@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, FormGroup, ControlLabel, FormControl, Form, Radio, Table, Grid, Row, Col, PageHeader } from 'react-bootstrap';
 import Option from './option';
 import store from './../app';
+import TooltipUn from './tooltip';
 
 class AddWorker extends React.Component{
 	constructor(props){
@@ -138,7 +139,7 @@ class AddWorker extends React.Component{
                             </FormControl>
                         </FormGroup>
                         <FormGroup>
-                        <ControlLabel></ControlLabel>
+                        <ControlLabel>Позиция</ControlLabel>
                         <FormControl 
                             inputRef = {input=>this.position = input}
                             componentClass="select"
@@ -161,7 +162,7 @@ class AddWorker extends React.Component{
                         />
                     </FormGroup>
                     <FormGroup>
-                        <ControlLabel>Дата рождения</ControlLabel>
+                        <ControlLabel>Статус</ControlLabel>
                         <FormControl 
                             inputRef = {input=>this.status = input}
                             componentClass="select"
@@ -173,9 +174,11 @@ class AddWorker extends React.Component{
                             <option value="уволен(а)">Уволен</option>
                         </FormControl>
                     </FormGroup>
-                        <Button type="submit" bsStyle="success">Отправить данные</Button>
+                        <Button className="btn--edit" type="submit" bsStyle="success">Отправить данные</Button>
+                        <TooltipUn classTool={'tl--edit'} data = {'Отправка отредактированных данных в базу данных. После нажатия, окно добавления работника можно закрыть'} />
                     </Form>
                     <Button bsStyle="danger" className="btn-mN btn--delete" style={{marginTop:"2em", marginBottom: '0'}} onClick = {()=>{this.getValue(1, 'delete')}}>Удалить данные</Button>
+                    <TooltipUn classTool={'tl--delete'} data = {'Удаление записи о сотруднике из базы данных. Будте осторожны!!!'} />
                 </div>    
 		);
 	}

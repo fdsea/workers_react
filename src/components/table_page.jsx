@@ -14,11 +14,11 @@ class TablePage extends React.Component{
     }
     render(){
         let index = this.props.match.params.number;
-        //console.log(this.props.match.params.number); /// получается ссылка на индекс массива который и надо отрисовать
-        //console.log(this.state.arr);                /// ссылка на временный массив
-       console.log(index, this.state.arr[index])
+        let rows = this.state.arr[index].map((v,i)=>{
+            return <TableRowComponent key={`${i}`} data={v}/>
+        });
         return(
-            <div></div>
+            <tbody>{ rows }</tbody>
         );
     }
 }

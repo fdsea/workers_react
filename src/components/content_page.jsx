@@ -1,7 +1,8 @@
 import React from 'react';
 import {Button, Table, Grid, Row, Col, PageHeader } from 'react-bootstrap';
+import { Link, Route, Switch } from 'react-router-dom';
 import TableRowComponent from './table_row';
-import TableWrapper from './table_wrapper'; 
+import TablePage from './table_page';
 import store from './../app';    
 class ContentPage extends React.Component{
     constructor(props){
@@ -18,8 +19,14 @@ class ContentPage extends React.Component{
         });
     }
     render(){
-       //console.log(this.props.isValue.temporary_arr);
         let rows;
+        let pages;
+        let links = this.props.isValue.temporary_arr.map((v, i)=>{
+            return <Link to={`/${i}`} key={`${i}`} style={{marginRight: '.5em'}}><Button bsStyle="success">{ i+1 }</Button></Link>
+        });
+        let routs = <Switch>
+                        <Route path='/:number' component = {TablePage}/>
+                    </Switch>
             this.props.isValue.quant_data 
             ? 
                 rows = this.props.isValue.sorting_base.map((value, index)=>{
@@ -29,8 +36,9 @@ class ContentPage extends React.Component{
                         <TableRowComponent key={`${index}`} data = {value} />
                     )
                 })
+
             : 
-             rows = <TableWrapper isValue = {this.props.isValue} />;/// тут список таблиц из отсортированного по кол-ву страниц массива
+             pages = routs;
         return(
             <Grid>
                 <Row>
@@ -46,13 +54,14 @@ class ContentPage extends React.Component{
                                     <td className="td_table head--cell">Кнопки</td>
                                 </tr>
                             </thead>
+                                { pages }
                             <tbody>    
                                 { rows }
                             </tbody>    
                         </Table>
+                       <div>{links}</div>
                     </Col>
                 </Row>
-                {this.props.isValue.sorting_base.length > this.state.amount ? <Button bsStyle="success">next</Button>: <div></div>}
             </Grid>            
         );
     }

@@ -11,14 +11,15 @@
     display: block;
 }
 .head--cell:after{
-    content: 'Сортировать';
+    content: 'Сортировать данные. Возможно только в режиме "Список", после чего иформация может быть разбита на страницы';
     position: absolute;
     display: block;
     padding: 1em;
+    width: 200px;
     background: #fff;
     box-shadow: 5px 5px 15px #aaa;
     left: 0;
-    top: -130%;
+    top: 130%;
     display: none;
     z-index: 100;
 }
@@ -26,26 +27,78 @@
     content: '';
     display: none;
 }
+.td_table{
+    position: relative;
+}
+.tooltip_v{
+    position: absolute;
+    padding: 1em;
+    width: 200px;
+    background: #fff;
+    box-shadow: 5px 5px 15px #aaa;
+    left: 0;
+    top: 100%;
+    display: none;
+    z-index: 1000;
+    color: #000;
+}
+
 .btn-mN{
     position: relative;
     margin-right: 5px;
 }
-
+.btn--reduction:hover+.reduction{
+    display: block;
+}
+.btn--job:hover+.job{
+    display: block;
+}
+.list-btn:hover+.tl--list{
+    display: block;
+}
+.page-btn:hover+.tl--page{
+    display: block;
+}
+.add-worker:hover+.tl--add{
+    display: block;
+}
+.btn--send:hover+.tl--send{
+    display: block;
+}
+.btn--close:hover+.tl--close{
+    display: block;
+    left: 50%;
+    top:70%;
+}
+.btn--delete:hover+.tl--delete{
+    display: block;
+}
+.btn--edit:hover+.tl--edit{
+    display: block;
+    top: 60%;
+}
+/*
 .btn--reduction:after, .btn--depCh:after, .btn--delete:after, .btn--job:after{
-    content: "Редактирование данных работника";
+    content: '';
     position: absolute;
     display: block;
     z-index: 100;
     color: #000;
     padding: 1em;
+    width: 300px;
+    height: auto;
     background: #fff;
     box-shadow: 5px 5px 15px #aaa;
     left: -10em;
     top: -200%;
     display: none;
+    word-break: break-all;
 }
 .btn--reduction:hover:after, .btn--depCh:hover:after, .btn--delete:hover:after, .btn--job:hover:after{
     display: block;
+}
+.btn--reduction:after{
+    content: 'Редактирование данных работника. Возможно только в режиме "Список"';
 }
 
 .btn--depCh:after{
@@ -77,3 +130,4 @@
 .red{
     color: red;
 }
+*/
