@@ -17,12 +17,11 @@ const ActionLine = ({isValue, changeDisp}) => {
                     type: "OPEN_ADD_MODAL",
                     payload: true
                 });
-            }}/>
-            
+            }}/> 
             </Col>
             <Col xs={3}>
-                <Button style={{display: 'inline-block', marginTop: '1.7em', marginRight: ".2em"}} bsStyle="success" onClick={()=>{changeDisp(0)}}>Список</Button>
-                <Button style={{display: 'inline-block', marginTop: '1.7em'}} bsStyle="success" onClick={()=>{changeDisp(1)}}>Страницы</Button>
+                <Button style={{display: 'inline-block', marginTop: '1.7em', marginRight: ".2em"}} bsStyle="success" onClick={()=>{changeDisp(1)}}>Список</Button>
+                <Button style={{display: 'inline-block', marginTop: '1.7em'}} bsStyle="success" onClick={()=>{changeDisp(0)}}>Страницы</Button>
             </Col>
         </Row>
     </Grid>

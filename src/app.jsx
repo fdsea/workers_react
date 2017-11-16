@@ -45,17 +45,19 @@ class App extends React.Component {
 			store.dispatch({
 				type: "TYPE_PAGE",
 				payload: 0
-			})
+			});
 		}
 	}
 	render(){
 		return(
-			<div>
-				<ActionLine isValue = {this.props.appData} changeDisp = {this.changeDisp}/>
-				<AddModal isValue = {this.props.appData} type={'add'}/>
-				<AddModal isValue = {this.props.appData} type={'edit'}/>
-				<ContentPage isValue = {this.props.appData}/>
-			</div>
+			<Router history={history}>
+				<div>
+					<ActionLine isValue = {this.props.appData} changeDisp = {this.changeDisp}/>
+					<AddModal isValue = {this.props.appData} type={'add'}/>
+					<AddModal isValue = {this.props.appData} type={'edit'}/>
+					<ContentPage isValue = {this.props.appData}/>
+				</div>
+			</Router>
   		);
 	}
 };

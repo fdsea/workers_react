@@ -72,6 +72,22 @@ const DATA = {
         }
         sendData = JSON.stringify(middleValue);
         localStorage.setItem(storage_data_base, sendData);
+    },
+    temporary_arr: [],
+    generateTable(pageAmount, page, data, count, max){
+        if(page < pageAmount){
+            let a = [];
+            for(let i = count; i < max; i++){
+                a.push(data[i]);
+            }
+            let fa =  a.filter((v)=>{return v !==undefined});
+           
+                 this.temporary_arr.push(fa)
+
+            this.generateTable(pageAmount, page+=1, data, count+=5, max+=5)
+        }else{
+            return false;
+        }
     }
 }
 
@@ -113,8 +129,8 @@ const reducer = (state = DATA, action) => {
                 return v;
             }
         })]};
-        case "TYPE_LIST": return state = {...state, quant_data: action.payload};
-        case "TYPE_PAGE": return state = {...state, quant_data: action.payload};
+        case "TYPE_LIST": return state = {...state, quant_data: action.payload, temporary_arr: []};
+        case "TYPE_PAGE": state.generateTable(state.pageQuantity(), 0, state.sorting_base, 0,state.row_in_page); return state = {...state, quant_data: action.payload};
         default: return state = {...state,};
     }
 };

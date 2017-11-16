@@ -1,14 +1,14 @@
 import React from 'react';
 import {Button, Table, Grid, Row, Col, PageHeader } from 'react-bootstrap';
-import TableRowComponent from './table_row'; 
+import TableRowComponent from './table_row';
+import TableWrapper from './table_wrapper'; 
 import store from './../app';    
 class ContentPage extends React.Component{
     constructor(props){
         super(props);
         this.sorting = this.sorting.bind(this);
-        this.generateTable = this.generateTable.bind(this);
         this.state ={
-        rowArr: []
+        rows : []
         };
     }
     sorting(e){
@@ -16,34 +16,21 @@ class ContentPage extends React.Component{
             type: "SORTING_DATA_BASE",
             payload: this.props.isValue.sorting(e)
         });
-
-        /*--temporary--*/
-        this.generateTable(this.props.isValue.pageQuantity() , 0 , this.props.isValue.sorting_base, 0 , this.props.isValue.row_in_page)
-    }
-    generateTable(pageAmount, page, data, count, max){
-        if(page < pageAmount){
-            let a = [];
-            for(let i = count; i < max; i++){
-                a.push(data[i]);
-            }
-            let fa =  a.filter((v)=>{return v !==undefined});
-            this.setState((prev)=>{
-              return  {rowArr: [...prev.rowArr, fa] }
-            })
-            this.generateTable(pageAmount, page+=1, data, count+=5, max+=5)
-        }else{
-            return false;
-        }
     }
     render(){
-        console.log(this.props.isValue.quant_data);
-        let rows = this.props.isValue.sorting_base.map((value, index)=>{
-			return (
-                value.department==="Офис" ? <TableRowComponent key={`${index}`} data = {value} /> :
-                value.department==="Склад" ? <TableRowComponent key={`${index}`} data = {value} /> : 
-                <TableRowComponent key={`${index}`} data = {value} />
-            )
-        });
+       //console.log(this.props.isValue.temporary_arr);
+        let rows;
+            this.props.isValue.quant_data 
+            ? 
+                rows = this.props.isValue.sorting_base.map((value, index)=>{
+			        return (
+                    value.department==="Офис" ? <TableRowComponent key={`${index}`} data = {value} /> :
+                    value.department==="Склад" ? <TableRowComponent key={`${index}`} data = {value} /> : 
+                        <TableRowComponent key={`${index}`} data = {value} />
+                    )
+                })
+            : 
+             rows = <TableWrapper isValue = {this.props.isValue} />;/// тут список таблиц из отсортированного по кол-ву страниц массива
         return(
             <Grid>
                 <Row>
