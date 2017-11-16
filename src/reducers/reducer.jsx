@@ -4,6 +4,12 @@ const DATA = {
     storeKey: 'test_data_base_q1w2e3r4',
     data_base: [],
     sorting_base: [],
+    len: function(){return this.sorting_base.length},
+    row_in_page: 5,
+    quant_data: 1,
+    pageQuantity: function(){
+        return Math.floor(this.len() / this.row_in_page) + (this.len() % this.row_in_page ? 1 : 0)
+    },
     temporary_edit_value: {data: {}, open: false},
     sortThis: function(arr, parameter) {
         let middleArr = [...arr];
@@ -32,7 +38,8 @@ const DATA = {
 	filterValue(inp, data){
 		let a = [];
 				let b = data.filter((value)=>{
-					let reg = new RegExp(inp, 'gi');
+                    let reg = new RegExp(inp, 'gi');
+            
 					return (
 						value.name.match(reg) || 
 						value.surname.match(reg) || 
@@ -70,7 +77,7 @@ const DATA = {
 
 
 const reducer = (state = DATA, action) => {
-   // console.log(state.temporary_edit_value);
+   
     switch(action.type){
         case "LOAD_DATA" : return state = {...state, data_base: action.payload, sorting_base: action.payload};
         case "OPEN_ADD_MODAL" : return state = {...state, openModal: action.payload};
@@ -106,6 +113,8 @@ const reducer = (state = DATA, action) => {
                 return v;
             }
         })]};
+        case "TYPE_LIST": return state = {...state, quant_data: action.payload};
+        case "TYPE_PAGE": return state = {...state, quant_data: action.payload};
         default: return state = {...state,};
     }
 };

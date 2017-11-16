@@ -12,7 +12,7 @@ const FilterInput = ({func, isValue}) => {
                         type: "FILTER_DATA_BASE",
                         payload: isValue.changeValue(e)
                     });
-                }}></FormControl>
+                }} placeholder="Введите ФИО, должность, отдел или дату рождения"></FormControl>
             </FormGroup>
         </Form>
     );

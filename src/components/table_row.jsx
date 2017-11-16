@@ -5,25 +5,19 @@ import store from './../app';
 const TableRowComponent = ({data}) => {
 	return(
 		<tr>
-			<td className="td_table" data-department={data.department}>{data.department}</td>
-			<td className="td_table" data-name={data.name}>{data.name}  {data.patronymic} {data.surname}</td>
-			<td className="td_table" data-birthday={data.birthday}>{data.birthday}</td>
-			<td className="td_table" data-position ={data.position}>{data.position}</td>
-			<td className="td_table" data-status={data.status}>{data.status}</td>
-			<td className="td_table">
+			<td className="td_table td--content" data-department={data.department}>{data.department}</td>
+			<td className="td_table td--content" data-name={data.name}>{data.name}  {data.patronymic} {data.surname}</td>
+			<td className="td_table td--content" data-birthday={data.birthday}>{data.birthday}</td>
+			<td className="td_table td--content" data-position ={data.position}>{data.position}</td>
+			<td className="td_table td--content" data-status={data.status}>{data.status}</td>
+			<td className="td_table td--content">
 				<Button className="btn-mN btn--reduction" bsStyle="warning" onClick={()=>{
 					store.dispatch({
 						type: 'OPEN_EDIT_MODAL',
 						payload: {data: {...data}, open: true}
 					});
 				}}>Ред</Button>
-				<Button bsStyle="primary" className="btn-mN btn--depCh">См</Button>
-				<Button bsStyle="danger" className="btn-mN btn--delete" onClick={()=>{
-					store.dispatch({
-						type: "DELETE_WORKER",
-						payload: data
-					})
-				}}>Уд</Button>
+				{/*<Button bsStyle="primary" className="btn-mN btn--depCh">См</Button> */}
 				{data.status === 'работает' 
 				? 
 				<Button bsStyle="danger" className="btn-mN btn--job" onClick={()=>{

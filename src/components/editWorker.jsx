@@ -175,7 +175,7 @@ class AddWorker extends React.Component{
                     </FormGroup>
                         <Button type="submit" bsStyle="success">Отправить данные</Button>
                     </Form>
-                    <Button bsStyle="danger" style={{marginTop:"2em", marginBottom: '0'}} onClick = {()=>{this.getValue(1, 'delete')}}>Удалить данные</Button>
+                    <Button bsStyle="danger" className="btn-mN btn--delete" style={{marginTop:"2em", marginBottom: '0'}} onClick = {()=>{this.getValue(1, 'delete')}}>Удалить данные</Button>
                 </div>    
 		);
 	}

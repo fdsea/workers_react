@@ -27,11 +27,12 @@
     display: none;
 }
 .btn-mN{
-    position: relative
+    position: relative;
+    margin-right: 5px;
 }
 
 .btn--reduction:after, .btn--depCh:after, .btn--delete:after, .btn--job:after{
-    content: "При нажатии на кнопку Вы сможите отредактировать данные работника";
+    content: "Редактирование данных работника";
     position: absolute;
     display: block;
     z-index: 100;
@@ -48,11 +49,31 @@
 }
 
 .btn--depCh:after{
-    content: "При нажатии на кнопку Вы сможите поменять отдел работы";
+    content: "При нажатии на кнопку Вы можете поменять отдел работы";
 }
 .btn--delete:after{
     content: "Удаление записи из базы";
 }
 .btn--job:after{
     content: "Вы можете уволить или восстановить работника"
+}
+.add-worker{
+    position: relative;
+}
+.add-worker:after{
+    content: 'Вы можете добавить нового работника';
+    position: absolute;
+    padding: 1em;
+    background: #fff;
+    box-shadow: 2px 2px 10px #aaa;
+    color: #000;
+    z-index: 100;
+    display: none;
+    top: 120%;
+}
+.add-worker:hover:after{
+    display: block;
+}
+.red{
+    color: red;
 }
